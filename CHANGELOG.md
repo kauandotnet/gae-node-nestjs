@@ -1,3 +1,22 @@
+## 8.0.0 (2020-05-??)
+
+- Refactor search to allow custom search implementations
+- Refactor existing SearchService into GaeSearchService implementation
+
+### Breaking changes:
+
+- Search types are now exported from the root package and should be imported from there
+- If you wish to use search you must explicitly define which SearchService implementation you wish to 
+inject when instantiating the GCloudModule. e.g. to retain existing functionality:
+
+```
+GCloudModule.forConfiguration({
+  configurationModule: ConfigurationModule,
+  userModule: UserModule,
+  searchModule: SearchModule.forConfiguration({ searchService: GaeSearchService }),
+})
+```
+
 ## 7.1.0-rc.5 (2020-05-21)
  - API change for using the logger. No more `logger()` function to obtain it - use the same `rootLogger` and `createLogger` that
  you were using before and when you go to `.debug(..)`, `info(..)` etc on that logger it will dynamically decide whether to use log
